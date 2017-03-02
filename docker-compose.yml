@@ -9,3 +9,5 @@ services:
             - ./files/caddy/conf:/home/www-data/caddy/conf
             - ./files/caddy/log:/home/www-data/caddy/log
             - ./files/www:/var/www
+        tty: true
+        stdin_open: true
