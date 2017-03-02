@@ -18,6 +18,15 @@ services:
             - ./files/www:/var/www
         tty: true
         stdin_open: true
+    mysql:
+        image: liammartens/mysql
+        ports:
+            - 127.0.0.1:3306:3306
+        volumes:
+            - ./files/mysql/data:/var/lib/mysql
+            - ./files/mysql/conf:/etc/mysql
+        tty: true
+        stdin_open: true  
     caddy:
         image: liammartens/caddy
         ports:
