@@ -1,2 +1,4 @@
-localhost:3000
-root /var/www
+localhost:3000 {
+    root /var/www
+    fastcgi / php:9000 php
+}
