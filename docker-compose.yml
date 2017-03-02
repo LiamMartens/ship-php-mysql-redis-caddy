@@ -29,8 +29,10 @@ services:
         stdin_open: true
     redis:
         image: liammartens/redis
-        ports:
+        environment:
             - REDIS_PORT=6379
+        ports:
+            - 127.0.0.1:6379:6379
         volumes:
             - ./files/redis/conf:/etc/redis
             - ./files/redis/log:/var/log/redis
