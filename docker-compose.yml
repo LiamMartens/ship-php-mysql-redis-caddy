@@ -1,10 +1,11 @@
 version: '3'
 services:
-    image: liammartens/caddy
-    ports:
-        - 127.0.0.1:3000:3000
-    volumes:
-        - ./files/caddy/.caddy:/home/www-data/caddy/.caddy
-        - ./files/caddy/conf:/home/www-data/caddy/conf
-        - ./files/caddy/log:/home/www-data/caddy/log
-        - ./files/www:/var/www
+    caddy:
+        image: liammartens/caddy
+        ports:
+            - 127.0.0.1:3000:3000
+        volumes:
+            - ./files/caddy/.caddy:/home/www-data/caddy/.caddy
+            - ./files/caddy/conf:/home/www-data/caddy/conf
+            - ./files/caddy/log:/home/www-data/caddy/log
+            - ./files/www:/var/www
