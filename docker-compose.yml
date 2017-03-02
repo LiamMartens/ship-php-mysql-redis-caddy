@@ -10,8 +10,6 @@ services:
             - PHP_UPLOAD_MAX_FILESIZE=15M
             - PHP_MAX_FILE_UPLOADS=10
             - PHP_POST_MAX_SIZE=45M
-            - MYSQL_HOST=mysql
-            - MYSQL_PORT=3306
         volumes:
             - ./files/php/conf:/etc/php7
             - ./files/php/log:/var/log/php7
@@ -22,11 +20,23 @@ services:
         image: liammartens/mysql
         ports:
             - 127.0.0.1:3306:3306
+        environment:
+            - MYSQL_PORT=3306
         volumes:
             - ./files/mysql/data:/var/lib/mysql
             - ./files/mysql/conf:/etc/mysql
         tty: true
-        stdin_open: true  
+        stdin_open: true
+    redis:
+        image: liammartens/redis
+        ports:
+            - REDIS_PORT=6379
+        volumes:
+            - ./files/redis/conf:/etc/redis
+            - ./files/redis/log:/var/log/redis
+            - ./files/redis/data:/var/lib/redis
+        tty: true
+        stdin_open: true
     caddy:
         image: liammartens/caddy
         ports:
