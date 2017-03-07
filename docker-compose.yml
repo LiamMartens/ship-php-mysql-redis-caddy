@@ -12,8 +12,8 @@ services:
             - PHP_POST_MAX_SIZE=45M
             - PHP_DISPLAY_ERRORS=1
         volumes:
-            - ./files/php/conf:/etc/php7.1
-            - ./files/php/log:/var/log/php7.1
+            - ./files/php/conf:/etc/php7
+            - ./files/php/log:/var/log/php7
             - ./files/www:/var/www
         tty: true
         stdin_open: true
