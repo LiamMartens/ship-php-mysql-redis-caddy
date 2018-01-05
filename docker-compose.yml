@@ -1,53 +1,60 @@
 version: '3'
 services:
     php:
-        image: liammartens/php
+        image: liammartens/phalcon
         ports:
-            - 127.0.0.1:9000:9000
+            - 127.0.0.1:$PHP_HOST:$PHP_PORT
         environment:
-            - PHP_PORT=9000
-            - PHP_MEMORY_LIMIT=128M
-            - PHP_UPLOAD_MAX_FILESIZE=30M
-            - PHP_MAX_FILE_UPLOADS=10
-            - PHP_POST_MAX_SIZE=45M
-            - PHP_DISPLAY_ERRORS=1
+            - PHP_PORT
+            - PHP_MEMORY_LIMIT
+            - PHP_UPLOAD_MAX_FILESIZE
+            - PHP_MAX_FILE_UPLOADS
+            - PHP_POST_MAX_SIZE
+            - PHP_DISPLAY_ERRORS
         volumes:
             - ./files/php/conf:/etc/php7
             - ./files/php/log:/var/log/php7
             - ./files/www:/var/www
+        restart: unless-stopped
         tty: true
         stdin_open: true
     mysql:
         image: liammartens/mysql
         ports:
-            - 127.0.0.1:3306:3306
+            - 127.0.0.1:$MYSQL_HOST:$MYSQL_PORT
         environment:
-            - MYSQL_PORT=3306
+            - MYSQL_PORT
         volumes:
             - ./files/mysql/data:/var/lib/mysql
             - ./files/mysql/conf:/etc/mysql
+        restart: unless-stopped
         tty: true
         stdin_open: true
     redis:
         image: liammartens/redis
         environment:
-            - REDIS_PORT=6379
+            - REDIS_PORT
         ports:
-            - 127.0.0.1:6379:6379
+            - 127.0.0.1:$REDIS_HOST:$REDIS_PORT
         volumes:
             - ./files/redis/conf:/etc/redis
             - ./files/redis/log:/var/log/redis
             - ./files/redis/data:/var/lib/redis
+        restart: unless-stopped
         tty: true
         stdin_open: true
     caddy:
         image: liammartens/caddy
+        environment:
+            - CADDY_PORT
+            - PHP_PORT
         ports:
-            - 127.0.0.1:3000:3000
+            - 127.0.0.1:$CADDY_HOST:$CADDY_PORT
         volumes:
             - ./files/caddy/.caddy:/home/www-data/caddy/.caddy
             - ./files/caddy/conf:/home/www-data/caddy/conf
             - ./files/caddy/log:/home/www-data/caddy/log
             - ./files/www:/var/www
+        restart: unless-stopped
         tty: true
         stdin_open: true

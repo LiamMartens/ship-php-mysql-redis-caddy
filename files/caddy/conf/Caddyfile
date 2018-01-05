@@ -1,4 +1,4 @@
-localhost:3000 {
+localhost:$CADDY_PORT {
     root /var/www
-    fastcgi / php:9000 php
+    fastcgi / php:$PHP_PORT php
 }
